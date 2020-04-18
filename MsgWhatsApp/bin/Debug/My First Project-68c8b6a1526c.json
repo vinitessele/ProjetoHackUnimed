@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "avid-heading-248713",
+  "private_key_id": "68c8b6a1526c6b8e2d87ebb40a2b2f2842332ca2",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC21VXVwPnP6lnv\nQgb5FfKxIqe1zROSqU3bZt47I1VLKDMcqi2ITqEN1OxobyySMhWuMhS+5AyQ2P3J\nEBLYV2jDi6fChhioEZVurHxBo52yo4YMp4J8+Y8pTOKor0rPh+fO66BS+hW6ZvCy\n+DDJMbPaT/jNuYatv+42AggkirGh9gREknZK5EaePcO5ey3wbGbUGD+BiiIPzIRo\n7ULKmM+fb/l1zcVohqF7gV/G7whbhFXSz/h6T6g+ICWsLxFrIKG/B/K6myISNKWw\n/5Pm4bwSJPB4/hwrwNCfUmEpMS0BKP+zdI2V/YSReIWtC/f0sgR0amyE72Mfjpo7\ni/oS6Oz5AgMBAAECggEAD9fWs0ogm5q0Jl5zWjxDpoPZQpC9xHS1UXDNixRZvMSE\nAVTh0zD1FczAm6AenaCHbmvajlwWlqqm+zhQWbzhUCiW5e1Wz6GOcGOz9MAn1yYC\nZLBTR18cv7hw36so8WjWdoDGiMow/dETxH5rQ9PxwNYzOih8eivqiXWNnRUDpYQV\nHsyB6Z5mDtvUfFl5Ej927uhXJ725pNSyFNZEKn+aeu6GiOgwp9DymmKYziQU1u7B\nOjseHvzb7YgckgLOgdtosVqmlhTONE7dKbzL1E+jlNlTT/a7Y+LKQKeznDL3ZgJu\nV0KulfabpEOdv6XrRx06upuFxhs+JWGsX7FuwNY+XQKBgQD6eU3VptyWJz1Do5yh\ny7kNsIO2LexLRGC5MxnIzeY+LEapoX+gM88bSSiknzAKgXYxNCS7K0pAaWYA6Ouf\ntMJ+CFyMu0URAnlpyBoc1r/Zp28D5qAG+ZmlFI4gzKcrpwvmaFDLW5es4DJI0zxU\n50TACmLPrucpVk37naEPx6vlewKBgQC63f4MPLJHyANHmBpB3edFMpQ30j8/TmdK\nN5GG2FRmgtkvwlTWLutvgdsWz7aQFdjxgGfgZb3TMKPey60VoefrVMn22KQssHpM\nyXqDf/NeULRiWTTGaom0g98mt2QczknM/WDkUsbHYT+n2tzkr17ZZ88/XDrK0fXv\nj6LzNQ9bGwKBgQDIsanMJ4dYSNit+crnWXVNosHml6VeKcvWmTtvyotSBegYw26f\nzuOD2XrXbTXxNQqfIkjMMEOumMVCtV8W+J9enRSLLwKIPpNKTyudL/VJUP+DAKf4\n7sZNn8rCPTk1oQPH+o3CZAGEY5/m+lq9LRHJTokeH+bZGG4jzonfOv5hQQKBgQCA\nKUjX87kCajd1nuhDTIIVf38QWe5u6MMGr93rcetQ82Up0EqHK17l91Xf6032vEUy\nPTMBQEZU1gNOBrsLHyQEzv5Fgof27oKyr2yLS/IKOae93BjKDL+tQtSFpTnQV9td\n8FnHvs3+aMBTy1O8tFqFGSGW/xaDjET0rLrBux5xCQKBgQDvNkTQuUvXcDv/et/T\nCeSjU4Jjxr8Y4UUYj9nYsccWt3IbP8YTp1IlqXjEGvqZHrOCGkX+XNO0s0KY7XW5\nYjGwkEAzlOr+UejAGCQh09bDdgDHPL0hDnOZPvGoQvwreHTdk8GbiGEWL++lFdzd\nlt+jnylGN7ptPuzkxCrftt2Jkw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "my-calendar-unimed@avid-heading-248713.iam.gserviceaccount.com",
+  "client_id": "103157046705175762303",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/my-calendar-unimed%40avid-heading-248713.iam.gserviceaccount.com"
+}
