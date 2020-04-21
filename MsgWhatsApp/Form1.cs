@@ -4,7 +4,6 @@ using System;
 using System.Data;
 using System.IO;
 using System.Net;
-using System.Net.Http;
 using System.Net.Mail;
 using System.Text;
 using System.Windows.Forms;
@@ -14,13 +13,36 @@ using Google.Apis.Auth.OAuth2;
 using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Services;
-using Google.Apis.Util.Store;
 using System.Collections.Generic;
+using System.Xml.Linq;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.parser;
 
 namespace MsgWhatsApp
 {
     public partial class Form1 : Form
     {
+        public class CityOrigem
+        {
+            public string cidadeOrigem { get; set; }
+        }
+        public class CityDestino
+        {
+            public string cidadeDestino { get; set; }
+        }
+        public class CityDestinoDuracao
+        {
+            public string cidadeDestino { get; set; }
+            public string tempo { get; set; }
+            public string km { get; set; }
+        }
+        public class Dacte
+        {
+            public string Destinatario { get; set; }
+            public string Endereco { get; set; }
+            public string Chave { get; set; }
+        }
+
         public Form1()
         {
             InitializeComponent();
@@ -254,7 +276,211 @@ namespace MsgWhatsApp
                     }
                 }
              };
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            string origin = "Rua Carlos DallAgnolo 121,Toledo, PR";
+            string destination = " R. Santos Dumont, 2546, Toledo, PR";
+            //URL do distancematrix - adicionando endereço de origem e destino
+            string url = string.Format("http://maps.googleapis.com/maps/api/directions/xml?origin={0}&destination={1}&mode=driving&language=pt-BR&sensor=false",
+                origin, destination);
+
+            //Carregar o XML via URL
+            XElement xml = XElement.Load(url);
+
+            //Verificar se o status é OK
+            if (xml.Element("status").Value == "OK")
+            {
+                string rota = string.Empty;
+                //Pegar os detalhes de cada passo da rota
+                foreach (var item in xml.Element("route").Element("leg").Elements("step"))
+                {
+                    //Pegar as instruções da rota em HTML
+                    rota += item.Element("html_instructions").Value + "<br />";
+                    //Pegar a distância deste trecho
+                    rota += item.Element("distance").Element("text").Value + "<br />";
+                }
+
+                //Formatar a resposta
+                string litResultado = string.Format("<strong>Origem</strong>: {0} <br /><strong>Destino:</strong> {1} <br /><strong>Distância</strong>: {2} <br /><strong>Duração</strong>: {3} <br /><strong>Como chegar ao destino</strong>:<br /> {4}",
+                     //Pegar endereço de origem
+                     xml.Element("route").Element("leg").Element("start_address").Value,
+                     //Pegar endereço de destino
+                     xml.Element("route").Element("leg").Element("end_address").Value,
+                     //Pegar duração
+                     xml.Element("route").Element("leg").Element("duration").Element("text").Value,
+                     //Pegar a distância
+                     xml.Element("route").Element("leg").Element("distance").Element("text").Value,
+                     //Adicionar a rota gerada logo acima
+                     rota
+                     );
+                //Atualizar o mapa
+                //map.Src = "https://maps.google.com/maps?saddr=" + xml.Element("route").Element("leg").Element("start_address").Value + "&daddr=" + xml.Element("route").Element("leg").Element("end_address").Value + "&output=embed";
+            }
+            else
+            {
+                //Se ocorrer algum erro
+                string litResultado = String.Concat("Ocorreu o seguinte erro: ", xml.Element("status").Value);
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+
+            List<CityOrigem> Listorigin = new List<CityOrigem>();
+            List<CityDestinoDuracao> listdestinoTempo = new List<CityDestinoDuracao>();
+            CityOrigem origem = new CityOrigem();
+            origem.cidadeOrigem = "Rua Carlos DallAgnolo 121,Toledo, PR";
+            Listorigin.Add(origem);
+            CityOrigem origem1 = new CityOrigem();
+            origem1.cidadeOrigem = "R. Santos Dumont, 2546, Toledo, PR";
+            CityOrigem origem2 = new CityOrigem();
+            origem2.cidadeOrigem = "R. Emílio de Menezes, 423, Toledo, PR";
+            Listorigin.Add(origem2);
+            CityOrigem origem3 = new CityOrigem();
+            origem3.cidadeOrigem = "R. Emíliano Perneta, 611, Toledo, PR";
+            Listorigin.Add(origem3);
+            CityOrigem origem4 = new CityOrigem();
+            origem4.cidadeOrigem = "R. Acapulco, 95, Toledo, PR";
+            Listorigin.Add(origem4);
+            CityOrigem origem5 = new CityOrigem();
+            origem5.cidadeOrigem = "Rua Itália Piovesan Pasqualli, 374, Toledo, PR";
+            Listorigin.Add(origem5);
+            CityOrigem origem6 = new CityOrigem();
+            origem6.cidadeOrigem = "R. Aloíso Anschau, 696, Toledo, PR";
+            Listorigin.Add(origem6);
+            CityOrigem origem7 = new CityOrigem();
+            origem7.cidadeOrigem = "R. dos Pioneiros, 437, Toledo, PR";
+            Listorigin.Add(origem7);
+            CityOrigem origem8 = new CityOrigem();
+            origem8.cidadeOrigem = "R. Luís Genari, 329, Toledo, PR";
+            Listorigin.Add(origem8);
+            CityOrigem origem9 = new CityOrigem();
+            origem9.cidadeOrigem = "R. Garibalde, 1733, Toledo, PR";
+            Listorigin.Add(origem9);
+            CityOrigem origem10 = new CityOrigem();
+            origem10.cidadeOrigem = "R. Paulo VI, 399, Toledo, PR";
+            Listorigin.Add(origem10);
+            string origin = "Rua Carlos DallAgnolo 121,Toledo, PR";
+            //string destination = " R. Santos Dumont, 2546, Toledo, PR";
+            foreach (var l in Listorigin)
+            {
+                string url = "https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" + origin + "&destinations=" + l.cidadeOrigem + "&key=AIzaSyCNiXQqjhm3GQ83i2FmXXo835XUOfylz6c";
+                WebRequest request = WebRequest.Create(url);
+                using (WebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    using (StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                    {
+                        DataSet dsResult = new DataSet();
+                        dsResult.ReadXml(reader);
+                        string duration = dsResult.Tables["duration"].Rows[0]["text"].ToString();
+                        string distance = dsResult.Tables["distance"].Rows[0]["text"].ToString();
+                        CityDestinoDuracao i = new CityDestinoDuracao();
+                        i.cidadeDestino = l.cidadeOrigem;
+                        i.tempo = duration;
+                        i.km = distance;
+                        listdestinoTempo.Add(i);
+                        listdestinoTempo.Add(i);
+                        listdestinoTempo.Add(i);
+                        listdestinoTempo.Add(i);
+                        listdestinoTempo.Add(i);
+                        listdestinoTempo.Add(i);
+                    }
+                }
+            }
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            ITextExtractionStrategy its = new iTextSharp.text.pdf.parser.LocationTextExtractionStrategy();
+
+            using (PdfReader reader = new PdfReader("c:\\temp\\adriana.pdf"))
+            {
+                StringBuilder text = new StringBuilder();
+                Boolean ehdestinatario = false;
+
+                for (int i = 1; i <= reader.NumberOfPages; i++)
+                {
+                    string thePage = PdfTextExtractor.GetTextFromPage(reader, i, its);
+                    string[] theLines = thePage.Split('\n');
+                    List<Dacte> listdacte = new List<Dacte>();
+                    foreach (var theLine in theLines)
+                    {
+                        try
+                        {
+                            Dacte dacte = new Dacte();
+                            if (theLine.StartsWith("DESTINATARIO"))
+                            {
+                                if (theLine.StartsWith("DESTINATARIODESTINATARIO"))
+                                {
+                                    dacte.Destinatario = theLine.Substring(24).Remove(theLine.Length - 14);
+                                    textBox1.AppendText(dacte.Destinatario);
+                                    textBox1.AppendText(Environment.NewLine);
+                                    ehdestinatario = true;
+                                }
+                                else if (theLine.StartsWith("DESTINATARIODESTINATARIODESTINATARIO"))
+                                {
+                                    dacte.Destinatario = theLine.Substring(36).Remove(theLine.Length - 21);
+                                    textBox1.AppendText(dacte.Destinatario);
+                                    textBox1.AppendText(Environment.NewLine);
+                                    ehdestinatario = true;
+                                }
+                                else
+                                {
+                                    dacte.Destinatario = theLine.Substring(12);
+                                    dacte.Destinatario = dacte.Destinatario.Remove(dacte.Destinatario.Length - 7);
+
+
+                                    textBox1.AppendText(dacte.Destinatario);
+                                    textBox1.AppendText(Environment.NewLine);
+                                    ehdestinatario = true;
+                                }
+                            }
+                            if (theLine.StartsWith("END") && ehdestinatario)
+                            {
+                                dacte.Endereco = theLine.Substring(3);
+                                textBox1.AppendText(theLine.Substring(3));
+                                textBox1.AppendText(Environment.NewLine);
+                                ehdestinatario = false;
+                            }
+                            else if (theLine.StartsWith("ENDEND") && ehdestinatario)
+                            {
+                                dacte.Endereco = theLine.Substring(3);
+                                textBox1.AppendText(theLine.Substring(3));
+                                textBox1.AppendText(Environment.NewLine);
+                                ehdestinatario = false;
+                            }
+                            else
+                            if (theLine.StartsWith("ENDENDEND") && ehdestinatario)
+                            {
+                                dacte.Endereco = theLine.Substring(3);
+                                textBox1.AppendText(theLine.Substring(3));
+                                textBox1.AppendText(Environment.NewLine);
+                                ehdestinatario = false;
+                            }
+                            else
+                            {
+                                dacte.Endereco = theLine.Substring(3);
+                                textBox1.AppendText(theLine.Substring(3));
+                                textBox1.AppendText(Environment.NewLine);
+                                ehdestinatario = false;
+
+                            }
+                            //ehdestinatario = false;
+                            //text.AppendLine(theLine);
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+                    }
+                }
+            }
+        }
     }
 }
+
+
+
 
 

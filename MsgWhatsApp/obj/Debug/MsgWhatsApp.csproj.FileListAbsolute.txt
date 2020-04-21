@@ -33,3 +33,5 @@ C:\Users\vinic\source\repos\MsgWhatsApp\MsgWhatsApp\bin\Debug\Google.Apis.Calend
 C:\Users\vinic\source\repos\MsgWhatsApp\MsgWhatsApp\bin\Debug\Google.Apis.Core.pdb
 C:\Users\vinic\source\repos\MsgWhatsApp\MsgWhatsApp\bin\Debug\Google.Apis.Core.xml
 C:\Users\vinic\source\repos\MsgWhatsApp\MsgWhatsApp\bin\Debug\My First Project-68c8b6a1526c.json
+C:\Users\vinic\source\repos\MsgWhatsApp\MsgWhatsApp\bin\Debug\itextsharp.dll
+C:\Users\vinic\source\repos\MsgWhatsApp\MsgWhatsApp\bin\Debug\itextsharp.xml
